@@ -37,7 +37,7 @@ public:
     SerialPort();
     ~SerialPort();
 
-    bool open(const std::string &deviceName, int speed = 9600);
+    bool open(const std::string &deviceName, int speed = 115200);
     void close();
 
     DeviceInfoMap initDevice(const std::string &deviceName);

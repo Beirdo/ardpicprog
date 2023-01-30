@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <pico.h>
 #define __PROG_TYPES_COMPAT__
 #include <avr/pgmspace.h>       // For PROGMEM
 
@@ -28,8 +29,8 @@ typedef int32_t prog_int32_t;
 typedef uint32_t prog_uint32_t;
 
 // Pin mappings for the PIC programming shield.
-#define PIN_MCLR        A1      // 0: MCLR is VPP voltage, 1: Reset PIC
-#define PIN_ACTIVITY    13      // LED that indicates read/write activity
+#define PIN_MCLR        8       // 0: MCLR is VPP voltage, 1: Reset PIC
+#define PIN_ACTIVITY    25      // LED that indicates read/write activity
 #define PIN_VDD         2       // Controls the power to the PIC
 #define PIN_CLOCK       4       // Clock pin
 #define PIN_DATA        7       // Data pin
@@ -119,6 +120,7 @@ const char s_pic16f886[]  PROGMEM = "pic16f886";
 const char s_pic16f887[]  PROGMEM = "pic16f887";
 const char s_pic16f877[] PROGMEM = "pic16f877";
 const char s_pic16f1454[] PROGMEM = "pic16f1454";
+const char s_pic16f15225[] PROGMEN ="pic16f15225";
 
 // List of devices that are currently supported and their properties.
 // Note: most of these are based on published information and have not
@@ -174,6 +176,9 @@ struct deviceInfo const devices[] PROGMEM = {
     // http://ww1.microchip.com/downloads/en/DeviceDoc/41620C.pdf
     {s_pic16f1454, 0x3020, 8192, 0x8000, 0x8200, 12, 0, 0, 0, FLASHONLY, EEPROM, 0 },
 
+    // https://ww1.microchip.com/downloads/en/DeviceDoc/40002149A.pdf
+    {s_pic16f15225, 0x30E9, 8192, 0x8000, 0x8200, 12, 0, 0, 0, FLASHONLY, EEPROM, 0},
+
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 };
 
@@ -188,7 +193,7 @@ unsigned long lastActive = 0;
 void setup()
 {
     // Need a serial link to the host.
-    Serial.begin(9600);
+    Serial.begin(115200);
 
     // Hold the PIC in the powered down/reset state until we are ready for it.
     pinMode(PIN_MCLR, OUTPUT);

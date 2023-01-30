@@ -70,7 +70,7 @@ bool opt_erase = false;
 bool opt_burn = false;
 bool opt_force_calibration = false;
 bool opt_list_devices = false;
-int opt_speed = 9600;
+int opt_speed = 115200;
 
 #ifndef DEFAULT_PIC_PORT
 #ifdef SERIAL_WIN32
